@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Студенты{% endblock %}
+
+{% block content %}
+<h1 class="text-3xl font-bold mb-6">🎓 Студенты</h1>
+
+<form method="get" class="flex gap-2 mb-4">
+  <input name="q" placeholder="Поиск..."
+         class="border p-2 rounded w-full">
+  <button class="bg-blue-500 text-white px-4 rounded">Найти</button>
+</form>
+
+<a href="{% url 'student_create' %}"
+   class="inline-block mb-4 bg-green-500 text-white px-4 py-2 rounded">
+   ➕ Добавить
+</a>
+
+<table class="w-full bg-white shadow rounded">
+  <tr class="bg-gray-200">
+    <th class="p-2">Имя</th>
+    <th>Email</th>
+    <th>Группа</th>
+    <th></th>
+  </tr>
+  {% for student in students %}
+  <tr class="border-t">
+    <td class="p-2">{{ student }}</td>
+    <td>{{ student.email }}</td>
+    <td>{{ student.group }}</td>
+    <td class="flex gap-2 p-2">
+      <a href="{% url 'student_update' student.id %}" class="text-blue-600">✏️</a>
+      <a href="{% url 'student_delete' student.id %}" class="text-red-600">🗑</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+<div class="mt-4">
+{% if page_obj.has_previous %}
+  <a href="?page={{ page_obj.previous_page_number }}">⬅</a>
+{% endif %}
+<span class="mx-2">Стр {{ page_obj.number }}</span>
+{% if page_obj.has_next %}
+  <a href="?page={{ page_obj.next_page_number }}">➡</a>
+{% endif %}
+</div>
+
+{% endblock %}
