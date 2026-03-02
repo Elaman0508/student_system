@@ -1,8 +1,43 @@
-<h2>Удалить {{ student }}?</h2>
+{% extends "base.html" %}
 
-<form method="post">
-  {% csrf_token %}
-  <button type="submit">Да, удалить</button>
-</form>
+{% block content %}
 
-<a href="{% url 'student_list' %}">Отмена</a>
+<div class="flex items-center justify-center min-h-[70vh]">
+
+    <div class="bg-gray-800 rounded-2xl shadow-2xl p-10 max-w-md w-full text-center">
+
+        <div class="text-5xl mb-4">⚠️</div>
+
+        <h2 class="text-2xl font-bold text-red-400 mb-4">
+            Удалить студента?
+        </h2>
+
+        <p class="text-gray-300 mb-6">
+            Вы действительно хотите удалить
+            <span class="font-semibold text-white">
+                {{ student }}
+            </span> ?
+        </p>
+
+        <form method="post" class="flex justify-center gap-4">
+            {% csrf_token %}
+
+            <a href="{% url 'student_list' %}"
+               class="px-6 py-2 rounded-xl bg-gray-600 hover:bg-gray-500 transition">
+                Отмена
+            </a>
+
+            <button type="submit"
+                    class="px-6 py-2 rounded-xl bg-red-600 hover:bg-red-500 
+                           font-semibold shadow-lg 
+                           transition transform hover:scale-105">
+                🗑 Да, удалить
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

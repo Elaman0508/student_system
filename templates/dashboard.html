@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="text-3xl font-bold mb-8">📊 Dashboard Overview</h1>
+
+<!-- Stats Cards -->
+<div class="grid grid-cols-4 gap-6 mb-10">
+
+    <div class="bg-gray-800 p-6 rounded-2xl shadow-lg hover:scale-105 transition">
+        <p class="text-gray-400">Total Students</p>
+        <h2 class="text-3xl font-bold text-indigo-400">{{ total_students }}</h2>
+    </div>
+
+    <div class="bg-gray-800 p-6 rounded-2xl shadow-lg hover:scale-105 transition">
+        <p class="text-gray-400">Total Groups</p>
+        <h2 class="text-3xl font-bold text-green-400">{{ total_groups }}</h2>
+    </div>
+
+    <div class="bg-gray-800 p-6 rounded-2xl shadow-lg hover:scale-105 transition">
+        <p class="text-gray-400">Total Courses</p>
+        <h2 class="text-3xl font-bold text-yellow-400">{{ total_courses }}</h2>
+    </div>
+
+    <div class="bg-gray-800 p-6 rounded-2xl shadow-lg hover:scale-105 transition">
+        <p class="text-gray-400">Average Grade</p>
+        <h2 class="text-3xl font-bold text-red-400">{{ average_grade }}</h2>
+    </div>
+
+</div>
+
+<!-- Charts -->
+<div class="grid grid-cols-2 gap-8">
+
+    <div class="bg-gray-800 p-6 rounded-2xl shadow-lg">
+        <h2 class="mb-4 text-lg font-semibold">Students per Group</h2>
+        <canvas id="groupChart"></canvas>
+    </div>
+
+    <div class="bg-gray-800 p-6 rounded-2xl shadow-lg">
+        <h2 class="mb-4 text-lg font-semibold">Average Grades per Course</h2>
+        <canvas id="gradeChart"></canvas>
+    </div>
+
+</div>
+
+<script>
+    const groupData = {
+        labels: {{ group_labels|safe }},
+        datasets: [{
+            label: "Students",
+            data: {{ group_counts|safe }},
+        }]
+    };
+
+    new Chart(document.getElementById("groupChart"), {
+        type: "bar",
+        data: groupData,
+    });
+
+    const gradeData = {
+        labels: {{ course_labels|safe }},
+        datasets: [{
+            label: "Average Grade",
+            data: {{ course_averages|safe }},
+        }]
+    };
+
+    new Chart(document.getElementById("gradeChart"), {
+        type: "line",
+        data: gradeData,
+    });
+</script>
+
+{% endblock %}

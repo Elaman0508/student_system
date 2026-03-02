@@ -1,15 +1,39 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
-<h1 class="text-xl font-bold mb-4">➕ Группа</h1>
 
-<form method="post" class="bg-white p-4 rounded shadow max-w-md">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="bg-blue-500 text-white px-4 py-2 rounded">
-        Сохранить
-    </button>
+<div class="max-w-2xl mx-auto">
+
+<h1 class="text-3xl font-bold text-indigo-400 mb-6">
+    ➕ Группа
+</h1>
+
+<div class="bg-gray-800 p-8 rounded-2xl shadow-xl">
+
+<form method="post" class="space-y-6">
+
+{% csrf_token %}
+
+{{ form.as_p }}
+
+<div class="flex justify-between pt-4">
+
+<a href="{% url 'group_list' %}"
+   class="text-gray-400 hover:text-white transition">
+    ← Назад
+</a>
+
+<button class="bg-indigo-600 hover:bg-indigo-500
+               px-6 py-2 rounded-xl transition">
+    💾 Сохранить
+</button>
+
+</div>
+
 </form>
 
-<a href="{% url 'group_list' %}">← Назад</a>
+</div>
+
+</div>
+
 {% endblock %}

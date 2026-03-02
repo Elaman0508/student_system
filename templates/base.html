@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LMS Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 flex">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-800 min-h-screen p-6">
+        <h2 class="text-2xl font-bold mb-8 text-indigo-400">🎓 Student System</h2>
+
+        <nav class="space-y-4">
+            <a href="/" class="block hover:text-indigo-400">🏠 Dashboard</a>
+            <a href="/students/" class="block hover:text-indigo-400">👨‍🎓 Students</a>
+            <a href="/groups/" class="block hover:text-indigo-400">👥 Groups</a>
+            <a href="/courses/" class="block hover:text-indigo-400">📚 Courses</a>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="flex-1 p-10">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</body>
+</html>
