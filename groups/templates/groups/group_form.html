@@ -1,38 +1,33 @@
 {% extends "base.html" %}
-
 {% block content %}
 
-<div class="max-w-2xl mx-auto">
+<div style="max-width:560px;">
 
-<h1 class="text-3xl font-bold text-indigo-400 mb-6">
-    ➕ Группа
-</h1>
+    <div class="page-header">
+        <h1>{% if form.instance.pk %}Редактировать группу{% else %}Новая группа{% endif %}</h1>
+        <p>Заполните данные группы</p>
+    </div>
 
-<div class="bg-gray-800 p-8 rounded-2xl shadow-xl">
+    <div class="card" style="animation:fadeUp 0.5s ease 0.1s both;">
+        <form method="post">
+            {% csrf_token %}
 
-<form method="post" class="space-y-6">
+            {% for field in form %}
+            <div class="form-group">
+                <label class="form-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                <div style="color:#f87171;font-size:12px;margin-top:6px;">{{ field.errors|striptags }}</div>
+                {% endif %}
+            </div>
+            {% endfor %}
 
-{% csrf_token %}
-
-{{ form.as_p }}
-
-<div class="flex justify-between pt-4">
-
-<a href="{% url 'group_list' %}"
-   class="text-gray-400 hover:text-white transition">
-    ← Назад
-</a>
-
-<button class="bg-indigo-600 hover:bg-indigo-500
-               px-6 py-2 rounded-xl transition">
-    💾 Сохранить
-</button>
-
-</div>
-
-</form>
-
-</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid var(--border);margin-top:8px;">
+                <a href="{% url 'group_list' %}" class="btn btn-ghost">← Назад</a>
+                <button type="submit" class="btn btn-primary">💾 Сохранить</button>
+            </div>
+        </form>
+    </div>
 
 </div>
 

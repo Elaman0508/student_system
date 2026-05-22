@@ -1,57 +1,32 @@
 {% extends "base.html" %}
-
 {% block content %}
 
-<div class="max-w-2xl mx-auto">
+<div style="max-width:560px;">
 
-    <div class="bg-gray-800 rounded-2xl shadow-xl p-8">
+    <div class="page-header">
+        <h1>{% if form.instance.pk %}Редактировать курс{% else %}Новый курс{% endif %}</h1>
+        <p>Заполните информацию о курсе</p>
+    </div>
 
-        <h1 class="text-3xl font-bold mb-6 text-indigo-400">
-            {% if form.instance.pk %}
-                ✏️ Редактировать курс
-            {% else %}
-                ➕ Добавить курс
-            {% endif %}
-        </h1>
-
-        <form method="post" class="space-y-6">
+    <div class="card" style="animation:fadeUp 0.5s ease 0.1s both;">
+        <form method="post">
             {% csrf_token %}
 
             {% for field in form %}
-                <div>
-                    <label class="block mb-2 text-sm font-medium text-gray-300">
-                        {{ field.label }}
-                    </label>
-
-                    {{ field }}
-
-                    {% if field.errors %}
-                        <p class="text-red-400 text-sm mt-1">
-                            {{ field.errors.0 }}
-                        </p>
-                    {% endif %}
-                </div>
+            <div class="form-group">
+                <label class="form-label">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                <div style="color:#f87171;font-size:12px;margin-top:6px;">{{ field.errors|striptags }}</div>
+                {% endif %}
+            </div>
             {% endfor %}
 
-            <div class="flex items-center justify-between pt-4">
-
-                <a href="{% url 'course_list' %}"
-                   class="text-gray-400 hover:text-white transition">
-                    ← Назад
-                </a>
-
-                <button type="submit"
-                        class="bg-indigo-600 hover:bg-indigo-500 
-                               px-6 py-2 rounded-xl 
-                               font-semibold shadow-lg 
-                               transition transform hover:scale-105">
-                    💾 Сохранить
-                </button>
-
+            <div style="display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px solid var(--border);margin-top:8px;">
+                <a href="{% url 'course_list' %}" class="btn btn-ghost">← Назад</a>
+                <button type="submit" class="btn btn-primary">💾 Сохранить</button>
             </div>
-
         </form>
-
     </div>
 
 </div>

@@ -26,7 +26,7 @@ def dashboard(request):
 
     # Courses analytics (⚠ поле названия может отличаться)
     courses = Course.objects.annotate(
-        avg_grade=Avg("grade__value")
+        avg_grade=Avg("grades__value")
     )
 
     # ⭐ IMPORTANT — проверь поле названия курса
